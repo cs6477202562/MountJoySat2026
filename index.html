@@ -58,9 +58,9 @@ footer ol{margin:3px 0 0;padding-left:18px}
   </header>
   <div class="mask" v-if="img" @click.self="img=''">
     <div class="pop">
-      <div class="hint">长按图片保存或转发（电脑端点“下载”）</div>
+      <div class="hint">长按图片下载保存，再发到群里</div>
       <div class="scroll"><img :src="img" alt="长图"></div>
-      <div class="btns"><button v-if="canShare" @click="sendImg">发送到微信/群…</button><button @click="download">下载</button><button class="gray" @click="img=''">关闭</button></div>
+      <div class="btns"><button @click="download">下载</button><button class="gray" @click="img=''">关闭</button></div>
     </div>
   </div>
   <div class="tabs">
@@ -324,20 +324,12 @@ createApp({
         tab.value = keepTab; view.value = keepView; busy.value = false;
       }
     }
-    // 调起系统分享面板（手机浏览器支持；微信内置浏览器不支持，会自动隐藏此按钮）
-    const asFile = async () => new File([await (await fetch(img.value)).blob()], '足球榜单.png', { type: 'image/png' });
-    const canShare = ref(!!(navigator.share && navigator.canShare &&
-      navigator.canShare({ files: [new File([''], 'a.png', { type: 'image/png' })] })));
-    async function sendImg() {
-      try { await navigator.share({ files: [await asFile()], title: '周六足球联赛榜单' }); }
-      catch (e) { if (e.name !== 'AbortError') alert('分享失败，请长按图片保存后再发送'); }
-    }
     function download() {
       const a = document.createElement('a');
       a.href = img.value; a.download = '足球榜单.png'; a.click();
     }
 
-    return { data, err, tab, view, tm, weekViews, overall, players, img, busy, share, download, canShare, sendImg };
+    return { data, err, tab, view, tm, weekViews, overall, players, img, busy, share, download };
   }
 }).mount('#app');
 </script>
