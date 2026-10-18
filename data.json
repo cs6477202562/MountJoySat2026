@@ -1,0 +1,36 @@
+{
+  "teams": [
+    { "id": "blue", "name": "大连土话队", "label": "蓝", "color": "#2f6fdb" },
+    { "id": "white", "name": "标准普通话队", "label": "白", "color": "#c9ccd1" },
+    { "id": "red", "name": "高级双语队", "label": "红", "color": "#d64545" }
+  ],
+  "players": {
+    "blue": ["老王", "大连毛伟杰", "小谢", "小宫", "淘哥", "Jackie乔", "欧文"],
+    "white": ["老师(Eason)", "hchen", "Yale王", "mango", "Pai", "峰哥", "Gary蔡"],
+    "red": ["技术菜", "俊杰CEO", "Garcia", "Ryan", "smart毛", "显哥", "王林"]
+  },
+  "weeks": [
+    {
+      "date": "2026-10-17",
+      "matches": [
+        { "home": "white", "away": "red", "goals": [] },
+        { "home": "white", "away": "blue", "goals": [
+          { "team": "white", "scorer": "峰哥", "assist": "" }
+        ] },
+        { "home": "blue", "away": "red", "goals": [
+          { "team": "blue", "scorer": "淘哥", "assist": "小谢" },
+          { "team": "blue", "scorer": "大连毛伟杰", "assist": "" },
+          { "team": "blue", "scorer": "大连毛伟杰", "assist": "" }
+        ] },
+        { "home": "white", "away": "red", "goals": [
+          { "team": "white", "scorer": "峰哥", "assist": "" }
+        ] },
+        { "home": "white", "away": "blue", "goals": [
+          { "team": "blue", "scorer": "Jackie乔", "assist": "" },
+          { "team": "blue", "scorer": "大连毛伟杰", "assist": "" }
+        ] },
+        { "home": "red", "away": "blue", "goals": [] }
+      ]
+    }
+  ]
+}
