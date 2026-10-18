@@ -254,6 +254,7 @@ createApp({
     // ===== 分享长图 =====
     const img = ref(''), busy = ref(false);
     const S = 2;
+    const SHARE_URL = 'https://cs6477202562.github.io/MountJoySat2026/';  // 二维码固定指向线上地址
 
     async function share() {
       if (busy.value || !data.value) return;
@@ -302,7 +303,7 @@ createApp({
 
         // 底部二维码
         g.fillStyle = '#fff'; g.fillRect(0, y, W, footH);
-        const url = location.href.split('#')[0].split('?')[0];
+        const url = SHARE_URL;
         const qr = qrcode(0, 'M'); qr.addData(url); qr.make();
         const n = qr.getModuleCount(), qs = 100 * S, cell = qs / n, qx = 20 * S, qy = y + (footH - qs) / 2;
         g.fillStyle = '#000';
