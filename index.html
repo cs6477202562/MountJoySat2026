@@ -9,7 +9,17 @@
 body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f3f5f7;color:#222;padding-bottom:230px}
 #app{max-width:640px;margin:0 auto}
 header{background:#14532d;color:#fff;padding:14px 16px 0;text-align:center}
+header{position:relative}
 header h1{margin:0 0 10px;font-size:18px}
+.share{position:absolute;right:12px;top:10px;border:1px solid #bbf7d0;background:transparent;color:#fff;border-radius:14px;padding:3px 12px;font-size:13px}
+.mask{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:20;display:flex;align-items:center;justify-content:center}
+.pop{background:#fff;border-radius:12px;width:min(92vw,520px);max-height:92vh;display:flex;flex-direction:column;padding:10px}
+.pop .hint{text-align:center;font-size:13px;color:#555;padding:2px 0 8px}
+.pop .scroll{overflow:auto;flex:1;border:1px solid #eee}
+.pop img{width:100%;display:block}
+.pop .btns{display:flex;gap:10px;padding-top:10px}
+.pop .btns button{flex:1;padding:9px 0;border:0;border-radius:8px;background:#14532d;color:#fff;font-size:15px}
+.pop .btns .gray{background:#e3e7ea;color:#333}
 .tabs{display:flex;position:sticky;top:0;background:#14532d;z-index:5}
 .tabs div{flex:1;text-align:center;padding:11px 0;color:#bbf7d0;font-size:15px;border-bottom:3px solid transparent}
 .tabs div.on{color:#fff;font-weight:600;border-color:#facc15}
@@ -44,7 +54,15 @@ footer ol{margin:3px 0 0;padding-left:18px}
 <div id="app">
   <header>
     <h1>⚽ 周六足球联赛</h1>
+    <button class="share" @click="share" :disabled="busy">{{busy?'生成中…':'分享'}}</button>
   </header>
+  <div class="mask" v-if="img" @click.self="img=''">
+    <div class="pop">
+      <div class="hint">长按图片保存或转发（电脑端点“下载”）</div>
+      <div class="scroll"><img :src="img" alt="长图"></div>
+      <div class="btns"><button @click="download">下载</button><button class="gray" @click="img=''">关闭</button></div>
+    </div>
+  </div>
   <div class="tabs">
     <div :class="{on:tab===0}" @click="tab=0">总榜</div>
     <div :class="{on:tab===1}" @click="tab=1">每周小榜</div>
@@ -144,8 +162,10 @@ footer ol{margin:3px 0 0;padding-left:18px}
 </div>
 
 <script src="vue.global.prod.js"></script>
+<script src="html2canvas.min.js"></script>
+<script src="qrcode.js"></script>
 <script>
-const { createApp, ref, computed, onMounted } = Vue;
+const { createApp, ref, computed, onMounted, nextTick } = Vue;
 
 // 给已排序数组标注名次；key 相同则并列
 function rankify(arr, keyFn) {
@@ -231,7 +251,84 @@ createApp({
       return rankify(list, p => p[k]);
     });
 
-    return { data, err, tab, view, tm, weekViews, overall, players };
+    // ===== 分享长图 =====
+    const img = ref(''), busy = ref(false);
+    const S = 2;
+
+    async function share() {
+      if (busy.value || !data.value) return;
+      busy.value = true;
+      const keepTab = tab.value, keepView = view.value;
+      try {
+        const shots = [];
+        const grab = async (t, v, label) => {
+          tab.value = t; view.value = v;
+          await nextTick(); await new Promise(r => setTimeout(r, 60));
+          const c = await html2canvas(document.querySelector('.wrap'), {
+            scale: S, backgroundColor: '#f3f5f7',
+            onclone: d => d.querySelectorAll('details,.seg').forEach(e => e.remove())
+          });
+          shots.push({ label, c });
+        };
+        await grab(0, 'goals', '总积分榜');
+        await grab(1, 'goals', '每周小榜');
+        await grab(2, 'goals', '个人进球榜');
+        await grab(2, 'assists', '个人助攻榜');
+
+        const W = Math.max(...shots.map(s => s.c.width));
+        const headH = 70 * S, barH = 40 * S, footH = 130 * S;
+        const H = headH + footH + shots.reduce((a, s) => a + barH + s.c.height, 0);
+        const out = document.createElement('canvas'); out.width = W; out.height = H;
+        const g = out.getContext('2d');
+        const font = '-apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+        g.fillStyle = '#f3f5f7'; g.fillRect(0, 0, W, H);
+
+        g.fillStyle = '#14532d'; g.fillRect(0, 0, W, headH);
+        g.fillStyle = '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle';
+        g.font = `bold ${22 * S}px ${font}`; g.fillText('⚽ 周六足球联赛', W / 2, headH * 0.4);
+        const last = data.value.weeks.at(-1)?.date;
+        g.font = `${12 * S}px ${font}`; g.fillStyle = '#bbf7d0';
+        g.fillText(last ? `已赛 ${data.value.weeks.length} 周 · 更新至 ${last}` : '', W / 2, headH * 0.75);
+
+        let y = headH;
+        g.textAlign = 'left';
+        for (const s of shots) {
+          g.fillStyle = '#dcfce7'; g.fillRect(0, y, W, barH);
+          g.fillStyle = '#14532d'; g.font = `bold ${15 * S}px ${font}`;
+          g.fillText(s.label, 14 * S, y + barH / 2);
+          y += barH;
+          g.drawImage(s.c, 0, y); y += s.c.height;
+        }
+
+        // 底部二维码
+        g.fillStyle = '#fff'; g.fillRect(0, y, W, footH);
+        const url = location.href.split('#')[0].split('?')[0];
+        const qr = qrcode(0, 'M'); qr.addData(url); qr.make();
+        const n = qr.getModuleCount(), qs = 100 * S, cell = qs / n, qx = 20 * S, qy = y + (footH - qs) / 2;
+        g.fillStyle = '#000';
+        for (let r = 0; r < n; r++) for (let c = 0; c < n; c++)
+          if (qr.isDark(r, c)) g.fillRect(qx + c * cell, qy + r * cell, Math.ceil(cell), Math.ceil(cell));
+        const tx = qx + qs + 16 * S;
+        g.fillStyle = '#14532d'; g.font = `bold ${16 * S}px ${font}`;
+        g.fillText('扫码查看最新榜单', tx, y + footH / 2 - 22 * S);
+        g.fillStyle = '#777'; g.font = `${11 * S}px ${font}`;
+        const per = Math.max(10, Math.floor((W - tx - 12 * S) / (6.2 * S)));
+        for (let i = 0, ln = 0; i < url.length; i += per, ln++)
+          g.fillText(url.slice(i, i + per), tx, y + footH / 2 + (4 + ln * 15) * S);
+
+        img.value = out.toDataURL('image/png');
+      } catch (e) {
+        alert('生成长图失败：' + e.message);
+      } finally {
+        tab.value = keepTab; view.value = keepView; busy.value = false;
+      }
+    }
+    function download() {
+      const a = document.createElement('a');
+      a.href = img.value; a.download = '足球榜单.png'; a.click();
+    }
+
+    return { data, err, tab, view, tm, weekViews, overall, players, img, busy, share, download };
   }
 }).mount('#app');
 </script>
