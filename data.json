@@ -15,18 +15,18 @@
       "matches": [
         { "home": "white", "away": "red", "goals": [] },
         { "home": "white", "away": "blue", "goals": [
-          { "team": "white", "scorer": "峰哥", "assist": "" }
+          { "team": "white", "scorer": "峰哥", "assist": "Pai" }
         ] },
         { "home": "blue", "away": "red", "goals": [
           { "team": "blue", "scorer": "淘哥", "assist": "小谢" },
-          { "team": "blue", "scorer": "大连毛伟杰", "assist": "" },
-          { "team": "blue", "scorer": "大连毛伟杰", "assist": "" }
+          { "team": "blue", "scorer": "大连毛伟杰", "assist": "老王" },
+          { "team": "blue", "scorer": "大连毛伟杰", "assist": "淘哥" }
         ] },
         { "home": "white", "away": "red", "goals": [
           { "team": "white", "scorer": "峰哥", "assist": "" }
         ] },
         { "home": "white", "away": "blue", "goals": [
-          { "team": "blue", "scorer": "Jackie乔", "assist": "" },
+          { "team": "blue", "scorer": "Jackie乔", "assist": "老王" },
           { "team": "blue", "scorer": "大连毛伟杰", "assist": "" }
         ] },
         { "home": "red", "away": "blue", "goals": [] }
