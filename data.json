@@ -34,6 +34,12 @@
     },
     {
       "date": "2026-10-24",
+      "video": "https://youtu.be/wteRB2G3oic?si=W8SxeO-p57pf8bhS",
+      "updates": [
+        { "tag": "红队", "text": "Aiden 替换俊杰CEO，即日起至12月底加入红队。" },
+        { "tag": "红 ⇄ 蓝", "text": "红队近期战绩欠佳、缺乏扭转局势的战术手段，经征得蓝队同意：淘哥租借至红队，显哥交换租借至蓝队。" },
+        { "tag": "白 ⇄ 蓝", "text": "白队租借小谢加入白队，同时交换租借 Gary 至蓝队。" }
+      ],
       "matches": [
         { "home": "blue", "away": "red", "goals": [
           { "team": "blue", "scorer": "小谢", "assist": "" },

@@ -26,6 +26,11 @@ header h1{margin:0 0 10px;font-size:18px}
 .wrap{padding:12px}
 .card{background:#fff;border-radius:10px;padding:12px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .card h3{margin:0 0 8px;font-size:15px}
+.upd{margin-top:10px;background:#f6f8f6;border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6}
+.upd .uh{font-weight:700;color:#14532d;margin-bottom:2px}
+.upd .ui{margin-top:3px}
+.upd .ut{display:inline-block;background:#14532d;color:#fff;border-radius:4px;padding:0 6px;margin-right:6px;font-size:12px}
+.vid{display:inline-block;margin-top:10px;font-size:13px;color:#14532d;text-decoration:none;border:1px solid #14532d;border-radius:14px;padding:3px 12px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:7px 3px;text-align:center;border-bottom:1px solid #eee;white-space:nowrap}
 th{color:#777;font-weight:500;font-size:12px}
@@ -100,6 +105,11 @@ footer ol{margin:3px 0 0;padding-left:18px}
           <td>{{r.gd>0?'+'+r.gd:r.gd}}</td><td class="hl">{{r.pts}}</td>
         </tr>
       </table>
+      <div class="upd" v-if="w.updates.length">
+        <div class="uh">📢 本周动态</div>
+        <div class="ui" v-for="(u,i) in w.updates" :key="i"><span class="ut">{{u.tag}}</span>{{u.text}}</div>
+      </div>
+      <a class="vid" v-if="w.video" :href="w.video" target="_blank" rel="noopener">🎬 观看赛后录像</a>
       <details style="margin-top:8px">
         <summary style="font-size:13px;color:#14532d">查看 {{w.matches.length}} 场比赛详情</summary>
         <div class="m" v-for="(m,i) in w.matches" :key="i">
@@ -211,7 +221,7 @@ createApp({
         table.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
         rankify(table, r => `${r.pts}|${r.gd}|${r.gf}`);
         table.forEach(r => { r.rankPts = 4 - r.rank; });
-        return { date: w.date, table, matches };
+        return { date: w.date, table, matches, updates: w.updates || [], video: w.video || '' };
       });
       return views.slice().reverse();   // 最新的一周在前
     });
@@ -267,7 +277,7 @@ createApp({
           await nextTick(); await new Promise(r => setTimeout(r, 60));
           const c = await html2canvas(document.querySelector('.wrap'), {
             scale: S, backgroundColor: '#f3f5f7',
-            onclone: d => d.querySelectorAll('details,.seg').forEach(e => e.remove())
+            onclone: d => d.querySelectorAll('details,.seg,.vid').forEach(e => e.remove())
           });
           shots.push({ label, c });
         };
