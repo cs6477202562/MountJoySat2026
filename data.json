@@ -31,6 +31,30 @@
         ] },
         { "home": "red", "away": "blue", "goals": [] }
       ]
+    },
+    {
+      "date": "2026-10-24",
+      "matches": [
+        { "home": "blue", "away": "red", "goals": [
+          { "team": "blue", "scorer": "小谢", "assist": "" },
+          { "team": "blue", "scorer": "淘哥", "assist": "" }
+        ] },
+        { "home": "blue", "away": "white", "goals": [
+          { "team": "blue", "scorer": "老王", "assist": "" },
+          { "team": "blue", "scorer": "淘哥", "assist": "" }
+        ] },
+        { "home": "white", "away": "red", "goals": [
+          { "team": "white", "scorer": "aiden朋友", "assist": "" }
+        ] },
+        { "home": "blue", "away": "red", "goals": [
+          { "team": "blue", "scorer": "欧文", "assist": "" }
+        ] },
+        { "home": "blue", "away": "white", "goals": [] },
+        { "home": "red", "away": "white", "goals": [
+          { "team": "red", "scorer": "Garcia", "assist": "" },
+          { "team": "white", "scorer": "老师(Eason)", "assist": "" }
+        ] }
+      ]
     }
   ]
 }
