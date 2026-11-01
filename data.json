@@ -64,6 +64,9 @@
     },
     {
       "date": "2026-10-31",
+      "updates": [
+        { "tag": "租借结束", "text": "租借结束：淘哥、小谢回归蓝队，显哥、Gary 同时回到原队。" }
+      ],
       "matches": [
         { "home": "red", "away": "blue", "goals": [
           { "team": "red", "scorer": "淘哥", "assist": "" }
