@@ -39,7 +39,7 @@ https://cs6477202562.github.io/MountJoySat2026/  （仓库 cs6477202562/MountJoy
 
 ## 名字规范（必须与 `players` 名单一致，否则个人榜会拆成两个人）
 用户常用简称，需对应成全名：毛伟杰→`大连毛伟杰`，jackie→`Jackie乔`，
-老师/Eason→`老师(Eason)`。其他以 data.json 里的 `players` 为准。
+老师→`老师`（Eason 是另一个人，不要混用）。其他以 data.json 里的 `players` 为准。
 替补球员直接写其名字即可（不必加进 players；加进去则个人榜颜色按其队伍显示）。
 
 ## 每周更新流程

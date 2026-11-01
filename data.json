@@ -6,7 +6,7 @@
   ],
   "players": {
     "blue": ["老王", "大连毛伟杰", "小谢", "小宫", "淘哥", "Jackie乔", "欧文"],
-    "white": ["老师(Eason)", "hchen", "Yale王", "mango", "Pai", "峰哥", "Gary蔡"],
+    "white": ["老师", "hchen", "Yale王", "mango", "Pai", "峰哥", "Gary蔡"],
     "red": ["技术菜", "俊杰CEO", "Garcia", "Ryan", "smart毛", "显哥", "王林"]
   },
   "weeks": [
@@ -58,7 +58,7 @@
         { "home": "blue", "away": "white", "goals": [] },
         { "home": "red", "away": "white", "goals": [
           { "team": "red", "scorer": "Garcia", "assist": "" },
-          { "team": "white", "scorer": "老师(Eason)", "assist": "" }
+          { "team": "white", "scorer": "老师", "assist": "" }
         ] }
       ]
     },
