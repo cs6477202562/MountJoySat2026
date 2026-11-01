@@ -94,7 +94,19 @@ footer ol{margin:3px 0 0;padding-left:18px}
 
   <div class="wrap" v-else-if="tab===1">
     <div class="empty" v-if="!weekViews.length">还没有比赛数据</div>
-    <div class="card" v-for="w in weekViews" :key="w.date">
+    <template v-for="w in timeline" :key="w.kind+w.date">
+    <div class="card" v-if="w.kind==='transfer'">
+      <h3>🔄 转会日 · {{w.date}}（周日）</h3>
+      <div class="upd" v-if="w.items.length">
+        <div class="uh">转会</div>
+        <div class="ui" v-for="(u,i) in w.items" :key="i"><span class="ut">{{u.tag}}</span>{{u.text}}</div>
+      </div>
+      <div class="upd" v-if="w.dropins.length">
+        <div class="uh">Drop in</div>
+        <div class="ui" v-for="(d,i) in w.dropins" :key="i"><span class="ut">{{d.team}}</span>{{d.name}} 顶替 {{d.replace}}</div>
+      </div>
+    </div>
+    <div class="card" v-else>
       <h3>{{w.date}}</h3>
       <table>
         <tr><th>#</th><th class="l">球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进/失</th><th>净</th><th>积分</th></tr>
@@ -128,6 +140,7 @@ footer ol{margin:3px 0 0;padding-left:18px}
         </div>
       </details>
     </div>
+    </template>
   </div>
 
   <div class="wrap" v-else>
@@ -225,6 +238,12 @@ createApp({
       });
       return views.slice().reverse();   // 最新的一周在前
     });
+
+    // 周榜时间线：比赛周 + 周日转会日，按日期倒序
+    const timeline = computed(() => [
+      ...weekViews.value.map(w => ({ ...w, kind: 'week' })),
+      ...(data.value?.transfers || []).map(t => ({ kind: 'transfer', date: t.date, items: t.items || [], dropins: t.dropins || [] })),
+    ].sort((a, b) => b.date.localeCompare(a.date) || (a.kind === 'transfer' ? -1 : 1)));
 
     // 总榜
     const overall = computed(() => {
@@ -339,7 +358,7 @@ createApp({
       a.href = img.value; a.download = '足球榜单.png'; a.click();
     }
 
-    return { data, err, tab, view, tm, weekViews, overall, players, img, busy, share, download };
+    return { data, err, tab, view, tm, weekViews, timeline, overall, players, img, busy, share, download };
   }
 }).mount('#app');
 </script>
