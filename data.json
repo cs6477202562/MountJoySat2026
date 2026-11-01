@@ -91,15 +91,15 @@
       ] },
     { "date": "2026-11-01",
       "items": [
-        { "tag": "⇄ 蓝", "text": "Gary 回归蓝队。" },
-        { "tag": "⇄ 红", "text": "显哥回归红队。" },
-        { "tag": "⇄ 白", "text": "淘哥租借到白队。" }
+        { "tag": "白 ⇄ 蓝", "text": "租借结束：小谢回归蓝队，Gary 回归白队。" },
+        { "tag": "红 ⇄ 蓝", "text": "租借结束：淘哥回归蓝队，显哥回归红队。" },
+        { "tag": "蓝 ⇄ 白", "text": "租借成交：淘哥租借到白队，Yale王租借到蓝队。" }
       ],
       "dropins": [
-        { "team": "白队", "name": "尾号", "replace": "王林" },
+        { "team": "白队", "name": "尾号", "replace": "mango" },
         { "team": "蓝队", "name": "凯文", "replace": "Yale王" },
         { "team": "白队", "name": "小刘", "replace": "hchen" },
-        { "team": "红队", "name": "杨骏", "replace": "mango" }
+        { "team": "红队", "name": "杨骏", "replace": "王林" }
       ] }
   ]
 }
