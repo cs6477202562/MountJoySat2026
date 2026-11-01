@@ -61,6 +61,25 @@
           { "team": "white", "scorer": "老师(Eason)", "assist": "" }
         ] }
       ]
+    },
+    {
+      "date": "2026-10-31",
+      "matches": [
+        { "home": "red", "away": "blue", "goals": [
+          { "team": "red", "scorer": "淘哥", "assist": "" }
+        ] },
+        { "home": "red", "away": "white", "goals": [] },
+        { "home": "blue", "away": "white", "goals": [
+          { "team": "blue", "scorer": "Eason", "assist": "" }
+        ] },
+        { "home": "blue", "away": "red", "goals": [
+          { "team": "blue", "scorer": "杨骏", "assist": "" }
+        ] },
+        { "home": "white", "away": "red", "goals": [
+          { "team": "white", "scorer": "ian", "assist": "" }
+        ] },
+        { "home": "blue", "away": "white", "goals": [] }
+      ]
     }
   ]
 }
