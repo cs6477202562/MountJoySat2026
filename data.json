@@ -129,6 +129,10 @@
         { "team": "蓝队", "name": "凯文", "replace": "Yale王" },
         { "team": "白队", "name": "小刘", "replace": "hchen" },
         { "team": "红队", "name": "杨骏", "replace": "王林" }
+      ] },
+    { "date": "2026-11-08",
+      "items": [
+        { "tag": "白 ⇄ 红", "text": "永久交换：Gary 加入红队，Aiden 加入白队。" }
       ] }
   ]
 }
