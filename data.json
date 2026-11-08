@@ -80,6 +80,30 @@
         ] },
         { "home": "blue", "away": "white", "goals": [] }
       ]
+    },
+    {
+      "date": "2026-11-07",
+      "video": "https://youtu.be/-3i5_g4BenY?si=4TRsA6RNhH2V1BgB",
+      "matches": [
+        { "home": "blue", "away": "red", "goals": [
+          { "team": "red", "scorer": "jayjay", "assist": "" }
+        ] },
+        { "home": "red", "away": "white", "goals": [
+          { "team": "red", "scorer": "ryan", "assist": "" }
+        ] },
+        { "home": "blue", "away": "white", "goals": [
+          { "team": "white", "scorer": "淘哥", "assist": "" }
+        ] },
+        { "home": "red", "away": "blue", "goals": [
+          { "team": "blue", "scorer": "小谢", "assist": "" },
+          { "team": "blue", "scorer": "老王", "assist": "" },
+          { "team": "blue", "scorer": "大连毛伟杰", "assist": "" }
+        ] },
+        { "home": "red", "away": "white", "goals": [] },
+        { "home": "blue", "away": "white", "goals": [
+          { "team": "white", "scorer": "Pai", "assist": "" }
+        ] }
+      ]
     }
   ],
   "transfers": [
