@@ -89,7 +89,7 @@
           { "team": "red", "scorer": "jayjay", "assist": "" }
         ] },
         { "home": "red", "away": "white", "goals": [
-          { "team": "red", "scorer": "ryan", "assist": "" }
+          { "team": "red", "scorer": "Ryan", "assist": "" }
         ] },
         { "home": "blue", "away": "white", "goals": [
           { "team": "white", "scorer": "淘哥", "assist": "" }
@@ -101,7 +101,7 @@
         ] },
         { "home": "red", "away": "white", "goals": [] },
         { "home": "blue", "away": "white", "goals": [
-          { "team": "white", "scorer": "Pai", "assist": "" }
+          { "team": "white", "scorer": "Pai", "assist": "峰哥" }
         ] }
       ]
     }
