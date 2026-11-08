@@ -30,6 +30,12 @@ header h1{margin:0 0 10px;font-size:18px}
 .upd .uh{font-weight:700;color:#14532d;margin-bottom:2px}
 .upd .ui{margin-top:3px}
 .upd .ut{display:inline-block;background:#14532d;color:#fff;border-radius:4px;padding:0 6px;margin-right:6px;font-size:12px}
+.hl-list{margin-top:8px;font-size:13px;line-height:1.9}
+.hl-list a{display:block;color:#14532d;text-decoration:none}
+.ad{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.ad img{max-width:100%;max-height:82vh;border-radius:8px;object-fit:contain}
+.ad button{margin-top:14px;border:0;border-radius:16px;padding:7px 22px;font-size:14px;background:#fff;color:#14532d}
+.ad button:disabled{background:#555;color:#ddd}
 .vid{display:inline-block;margin-top:10px;font-size:13px;color:#14532d;text-decoration:none;border:1px solid #14532d;border-radius:14px;padding:3px 12px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:7px 3px;text-align:center;border-bottom:1px solid #eee;white-space:nowrap}
@@ -57,6 +63,10 @@ footer ol{margin:3px 0 0;padding-left:18px}
 </head>
 <body>
 <div id="app">
+  <div class="ad" v-if="ad">
+    <img src="ad.webp" alt="大连英博">
+    <button :disabled="adLeft>0" @click="ad=false">{{adLeft>0?'请稍候 '+adLeft+' 秒':'关闭'}}</button>
+  </div>
   <header>
     <h1>⚽ 周六足球联赛</h1>
     <button class="share" @click="share" :disabled="busy">{{busy?'生成中…':'分享'}}</button>
@@ -122,6 +132,10 @@ footer ol{margin:3px 0 0;padding-left:18px}
         <div class="ui" v-for="(u,i) in w.updates" :key="i"><span class="ut">{{u.tag}}</span>{{u.text}}</div>
       </div>
       <a class="vid" v-if="w.video" :href="w.video" target="_blank" rel="noopener">🎬 观看赛后录像</a>
+      <div class="hl-list" v-if="w.highlights.length">
+        <div class="uh" style="font-weight:700;color:#14532d">✨ 精彩瞬间</div>
+        <a v-for="(h,i) in w.highlights" :key="i" :href="h.url" target="_blank" rel="noopener">▶ {{h.title}}</a>
+      </div>
       <details style="margin-top:8px">
         <summary style="font-size:13px;color:#14532d">查看 {{w.matches.length}} 场比赛详情</summary>
         <div class="m" v-for="(m,i) in w.matches" :key="i">
@@ -204,6 +218,9 @@ function rankify(arr, keyFn) {
 createApp({
   setup() {
     const data = ref(null), err = ref(''), tab = ref(0), view = ref('goals');
+    const ad = ref(true), adLeft = ref(3);
+    const adTimer = setInterval(() => { if (--adLeft.value <= 0) clearInterval(adTimer); }, 1000);
+
     onMounted(async () => {
       try {
         const r = await fetch('data.json?t=' + Date.now());
@@ -234,7 +251,7 @@ createApp({
         table.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
         rankify(table, r => `${r.pts}|${r.gd}|${r.gf}`);
         table.forEach(r => { r.rankPts = 4 - r.rank; });
-        return { date: w.date, table, matches, updates: w.updates || [], video: w.video || '' };
+        return { date: w.date, table, matches, updates: w.updates || [], video: w.video || '', highlights: w.highlights || [] };
       });
       return views.slice().reverse();   // 最新的一周在前
     });
@@ -296,7 +313,7 @@ createApp({
           await nextTick(); await new Promise(r => setTimeout(r, 60));
           const c = await html2canvas(document.querySelector('.wrap'), {
             scale: S, backgroundColor: '#f3f5f7',
-            onclone: d => d.querySelectorAll('details,.seg,.vid').forEach(e => e.remove())
+            onclone: d => d.querySelectorAll('details,.seg,.vid,.hl-list,.ad').forEach(e => e.remove())
           });
           shots.push({ label, c });
         };
@@ -358,7 +375,7 @@ createApp({
       a.href = img.value; a.download = '足球榜单.png'; a.click();
     }
 
-    return { data, err, tab, view, tm, weekViews, timeline, overall, players, img, busy, share, download };
+    return { ad, adLeft, data, err, tab, view, tm, weekViews, timeline, overall, players, img, busy, share, download };
   }
 }).mount('#app');
 </script>

@@ -84,12 +84,17 @@
     {
       "date": "2026-11-07",
       "video": "https://youtu.be/-3i5_g4BenY?si=4TRsA6RNhH2V1BgB",
+      "highlights": [
+        { "title": "红白正义判罚VAR", "url": "https://www.youtube.com/watch?v=RnY-YBVtnjw" },
+        { "title": "红队遗憾丢失必进球失冠", "url": "https://www.youtube.com/watch?v=3VIl_5llXoo" },
+        { "title": "红点点球致胜", "url": "https://www.youtube.com/watch?v=dou9ddKW3pI" }
+      ],
       "matches": [
         { "home": "blue", "away": "red", "goals": [
           { "team": "red", "scorer": "jayjay", "assist": "" }
         ] },
         { "home": "red", "away": "white", "goals": [
-          { "team": "red", "scorer": "Ryan", "assist": "" }
+          { "team": "red", "scorer": "凯文", "assist": "" }
         ] },
         { "home": "blue", "away": "white", "goals": [
           { "team": "white", "scorer": "淘哥", "assist": "" }
