@@ -102,7 +102,7 @@
         { "home": "red", "away": "blue", "goals": [
           { "team": "blue", "scorer": "小谢", "assist": "" },
           { "team": "blue", "scorer": "老王", "assist": "" },
-          { "team": "blue", "scorer": "大连毛伟杰", "assist": "" }
+          { "team": "blue", "scorer": "大连毛伟杰", "assist": "王哥" }
         ] },
         { "home": "red", "away": "white", "goals": [] },
         { "home": "blue", "away": "white", "goals": [
