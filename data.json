@@ -121,7 +121,7 @@
           { "team": "white", "scorer": "Gary蔡", "og": true }
         ] },
         { "home": "red", "away": "blue", "goals": [
-          { "team": "blue", "scorer": "smart毛", "assist": "技术菜" }
+          { "team": "red", "scorer": "smart毛", "assist": "技术菜" }
         ] },
         { "home": "white", "away": "blue", "goals": [
           { "team": "blue", "scorer": "淘哥", "assist": "小宫" }
