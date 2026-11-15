@@ -41,7 +41,7 @@
           { "team": "blue", "scorer": "淘哥", "assist": "" }
         ] },
         { "home": "blue", "away": "white", "goals": [
-          { "team": "blue", "scorer": "王哥", "assist": "" },
+          { "team": "blue", "scorer": "老王", "assist": "" },
           { "team": "blue", "scorer": "淘哥", "assist": "" }
         ] },
         { "home": "white", "away": "red", "goals": [
@@ -102,11 +102,33 @@
         { "home": "red", "away": "blue", "goals": [
           { "team": "blue", "scorer": "小谢", "assist": "" },
           { "team": "blue", "scorer": "老王", "assist": "" },
-          { "team": "blue", "scorer": "大连毛伟杰", "assist": "王哥" }
+          { "team": "blue", "scorer": "大连毛伟杰", "assist": "老王" }
         ] },
         { "home": "red", "away": "white", "goals": [] },
         { "home": "blue", "away": "white", "goals": [
           { "team": "white", "scorer": "Pai", "assist": "峰哥" }
+        ] }
+      ]
+    },
+    {
+      "date": "2026-11-14",
+      "matches": [
+        { "home": "blue", "away": "white", "goals": [
+          { "team": "white", "scorer": "老师", "assist": "峰哥" }
+        ] },
+        { "home": "red", "away": "white", "goals": [
+          { "team": "red", "scorer": "Garcia", "assist": "技术菜" },
+          { "team": "white", "scorer": "Gary蔡", "og": true }
+        ] },
+        { "home": "red", "away": "blue", "goals": [
+          { "team": "blue", "scorer": "smart毛", "assist": "技术菜" }
+        ] },
+        { "home": "white", "away": "blue", "goals": [
+          { "team": "blue", "scorer": "淘哥", "assist": "小宫" }
+        ] },
+        { "home": "white", "away": "red", "goals": [] },
+        { "home": "red", "away": "blue", "goals": [
+          { "team": "red", "scorer": "杨骏", "assist": "Garcia" }
         ] }
       ]
     }
