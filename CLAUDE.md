@@ -36,7 +36,7 @@ https://cs6477202562.github.io/MountJoySat2026/  （仓库 cs6477202562/MountJoy
 - 每周可选字段：`"video": "录像链接"`（显示"观看赛后录像"，新页面打开）；
   `"updates": [{ "tag": "红队", "text": "动态文字" }]`（显示在该周小榜下的"本周动态"，用于租借、换人等关键变动）。
 - 每周可选 `"highlights": [{ "title": "标题", "url": "链接" }]`：显示"精彩瞬间"链接列表（新页面打开，分享长图里不含）。
-- 每周可选 `"cards": [{ "player": "老王", "team": "white", "type": "red", "note": "赛后追加" }]`（`type` 为 `red` 或 `yellow`）：计入个人榜的"红黄牌榜"，并显示在该周小榜里。
+- 每周可选 `"cards": [{ "player": "Yale王", "team": "white", "type": "red", "note": "赛后追加" }]`（`type` 为 `red` 或 `yellow`）：计入个人榜的"红黄牌榜"，并显示在该周小榜里。
   规则（已写在红黄牌榜底部）：黄牌仅记录，累计 3 张停赛 2 分钟；红牌直接停赛 2 分钟。
 - 首页打开时弹出广告图 `ad.webp`（`index.html` 里的 `.ad`，强制等 3 秒才能关闭）；换图直接替换该文件。
 - 周日"转会日"：`data.json` 顶层 `transfers` 数组，每项 `{ "date": "周日日期", "items": [{ "tag": "蓝队", "text": "…" }], "dropins": [{ "team": "白队", "name": "尾号", "replace": "王林" }] }`，
