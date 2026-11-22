@@ -148,7 +148,7 @@
         ] },
         { "home": "red", "away": "blue", "goals": [
           { "team": "red", "scorer": "Ryan", "assist": "凯文" },
-          { "team": "red", "scorer": "Marco", "assist": "凯文" }
+          { "team": "red", "scorer": "smart毛", "assist": "凯文" }
         ] },
         { "home": "red", "away": "white", "goals": [] },
         { "home": "blue", "away": "white", "goals": [
