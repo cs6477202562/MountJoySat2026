@@ -132,6 +132,10 @@ footer ol{margin:3px 0 0;padding-left:18px}
         <div class="ui" v-for="(u,i) in w.updates" :key="i"><span class="ut">{{u.tag}}</span>{{u.text}}</div>
       </div>
       <a class="vid" v-if="w.video" :href="w.video" target="_blank" rel="noopener">🎬 观看赛后录像</a>
+      <div class="upd" v-if="w.cards.length">
+        <div class="uh">🟥🟨 本周红黄牌</div>
+        <div class="ui" v-for="(c,i) in w.cards" :key="i"><span class="ut">{{tm[c.team]?.label}}</span>{{c.type==='red'?'🟥 红牌':'🟨 黄牌'}}：{{c.player}}<template v-if="c.note">（{{c.note}}）</template></div>
+      </div>
       <div class="hl-list" v-if="w.highlights.length">
         <div class="uh" style="font-weight:700;color:#14532d">✨ 精彩瞬间</div>
         <a v-for="(h,i) in w.highlights" :key="i" :href="h.url" target="_blank" rel="noopener">▶ {{h.title}}</a>
@@ -161,8 +165,21 @@ footer ol{margin:3px 0 0;padding-left:18px}
     <div class="seg">
       <div :class="{on:view==='goals'}" @click="view='goals'">进球榜</div>
       <div :class="{on:view==='assists'}" @click="view='assists'">助攻榜</div>
+      <div :class="{on:view==='cards'}" @click="view='cards'">红黄牌榜</div>
     </div>
-    <div class="card">
+    <div class="card" v-if="view==='cards'">
+      <table>
+        <tr><th>#</th><th class="l">球员</th><th>🟥 红牌</th><th>🟨 黄牌</th></tr>
+        <tr v-for="p in cardList" :key="p.name" :class="{top1:p.rank===1}">
+          <td class="rk">{{p.rank}}</td>
+          <td class="l"><span class="dot" :style="{background:p.color}"></span>{{p.name}}</td>
+          <td class="hl">{{p.red}}</td>
+          <td>{{p.yellow}}</td>
+        </tr>
+      </table>
+      <div class="empty" v-if="!cardList.length">暂无红黄牌</div>
+    </div>
+    <div class="card" v-else>
       <table>
         <tr><th>#</th><th class="l">球员</th><th>{{view==='goals'?'进球':'助攻'}}</th><th>{{view==='goals'?'助攻':'进球'}}</th></tr>
         <tr v-for="p in players" :key="p.name" :class="{top1:p.rank===1}">
@@ -184,6 +201,14 @@ footer ol{margin:3px 0 0;padding-left:18px}
       <li>总积分 = 每周所得名次分累计。</li>
       <li>总积分相同时，依次比较：小场累计积分 → 累计净胜球 → 累计进球数；全部相同则并列。</li>
       <li>进球数、助攻数为各队累计（含替补球员；乌龙球算对方进球，不计助攻）。🥇🥈🥉 为获得第一、二、三名的次数。</li>
+    </ol>
+  </div></footer>
+  <footer v-else-if="tab===2 && view==='cards'"><div class="in">
+    <b>红黄牌规则</b>
+    <ol>
+      <li>黄牌最初参照铲球处罚，离场 1 分钟；因目前比赛较为激烈，现调整为：黄牌仅作记录，不再离场。</li>
+      <li>累计 3 张黄牌，停赛 2 分钟。</li>
+      <li>红牌直接停赛 2 分钟。</li>
     </ol>
   </div></footer>
   <footer v-else-if="tab===1"><div class="in">
@@ -251,7 +276,7 @@ createApp({
         table.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
         rankify(table, r => `${r.pts}|${r.gd}|${r.gf}`);
         table.forEach(r => { r.rankPts = 4 - r.rank; });
-        return { date: w.date, table, matches, updates: w.updates || [], video: w.video || '', highlights: w.highlights || [] };
+        return { date: w.date, table, matches, updates: w.updates || [], video: w.video || '', highlights: w.highlights || [], cards: w.cards || [] };
       });
       return views.slice().reverse();   // 最新的一周在前
     });
@@ -297,6 +322,22 @@ createApp({
       return rankify(list, p => p[k]);
     });
 
+    // 红黄牌榜
+    const cardList = computed(() => {
+      if (!data.value) return [];
+      const home = {};
+      Object.entries(data.value.players || {}).forEach(([t, names]) => names.forEach(n => home[n] = t));
+      const map = {};
+      data.value.weeks.forEach(w => (w.cards || []).forEach(c => {
+        const p = map[c.player] ||= { name: c.player, team: home[c.player] || c.team, red: 0, yellow: 0 };
+        if (c.type === 'red') p.red++; else p.yellow++;
+      }));
+      const list = Object.values(map);
+      list.forEach(p => { p.color = tm.value[p.team]?.color || '#999'; });
+      list.sort((a, b) => b.red - a.red || b.yellow - a.yellow);
+      return rankify(list, p => `${p.red}|${p.yellow}`);
+    });
+
     // ===== 分享长图 =====
     const img = ref(''), busy = ref(false);
     const S = 2;
@@ -321,6 +362,7 @@ createApp({
         await grab(1, 'goals', '每周小榜');
         await grab(2, 'goals', '个人进球榜');
         await grab(2, 'assists', '个人助攻榜');
+        await grab(2, 'cards', '红黄牌榜');
 
         const W = Math.max(...shots.map(s => s.c.width));
         const headH = 70 * S, barH = 40 * S, footH = 130 * S;
@@ -375,7 +417,7 @@ createApp({
       a.href = img.value; a.download = '足球榜单.png'; a.click();
     }
 
-    return { ad, adLeft, data, err, tab, view, tm, weekViews, timeline, overall, players, img, busy, share, download };
+    return { cardList, ad, adLeft, data, err, tab, view, tm, weekViews, timeline, overall, players, img, busy, share, download };
   }
 }).mount('#app');
 </script>

@@ -132,6 +132,30 @@
           { "team": "red", "scorer": "杨骏", "assist": "Garcia" }
         ] }
       ]
+    },
+    {
+      "date": "2026-11-21",
+      "updates": [
+        { "tag": "白队", "text": "王哥因比赛中情绪失控，被组委会赛后追加红牌一张。下周红队对阵白队时，王哥自动停赛2分钟。" }
+      ],
+      "cards": [
+        { "player": "老王", "team": "white", "type": "red", "note": "赛后追加" }
+      ],
+      "matches": [
+        { "home": "red", "away": "blue", "goals": [] },
+        { "home": "white", "away": "red", "goals": [
+          { "team": "white", "scorer": "Yale王", "assist": "Derek" }
+        ] },
+        { "home": "red", "away": "blue", "goals": [
+          { "team": "red", "scorer": "Ryan", "assist": "凯文" },
+          { "team": "red", "scorer": "Marco", "assist": "凯文" }
+        ] },
+        { "home": "red", "away": "white", "goals": [] },
+        { "home": "blue", "away": "white", "goals": [
+          { "team": "blue", "scorer": "杨骏", "assist": "" }
+        ] },
+        { "home": "white", "away": "blue", "goals": [] }
+      ]
     }
   ],
   "transfers": [
