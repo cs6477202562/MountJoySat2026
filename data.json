@@ -136,10 +136,10 @@
     {
       "date": "2026-11-21",
       "updates": [
-        { "tag": "白队", "text": "Yale王（王长晔）因比赛中情绪失控，被组委会赛后追加红牌一张。下周红队对阵白队时，Yale王自动停赛2分钟。" }
+        { "tag": "蓝队", "text": "老王（王哥）因比赛中情绪失控，被组委会赛后追加红牌一张，下周比赛自动停赛2分钟。" }
       ],
       "cards": [
-        { "player": "Yale王", "team": "white", "type": "red", "note": "赛后追加" }
+        { "player": "老王", "team": "blue", "type": "red", "note": "赛后追加" }
       ],
       "matches": [
         { "home": "red", "away": "blue", "goals": [] },
